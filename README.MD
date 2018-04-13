@@ -73,4 +73,28 @@ timer内部维护者一个线程队列和任务队列
          
          
     
-21.
+21.Quartz中的定时器有五种，常用的有两种，SimpleTrigger和CronTrigger
+  其中前者用来触发给定时间间隔；后者可以使用cron表达式来指定任一个时间点，任一个时间间隔
+  
+22.TODO: Quartz的存储方式有两种: RAMJobStore和JDBCJobStore，后者可以支持集群，这个暂时还没有了解
+
+23.TODO: Scheduler通过jobDetail来注册任务，通过trigger来调用定时任务
+
+24.TODO: 一个job可以被多个Trigger绑定，但是一个Trigger只能绑定一个job
+
+25.Job是一个类似于TimerTask的接口，只提供了一个execute方法，该方法中的参数JobExecutionContext提供了调度上下文的各种信息
+   Job运行时的信息保存再JobDataMao实例中；
+   
+26.Quartz再每次执行job时都会创建一个新的job实例，所以它不会直接接收一个实例，它可以接收一个Job的实现类，
+用于在运行时通过反射newInstance()来实例化Job，JobDetai类用于描述Job这个当前任务的实现类和一些静态信息
+
+27.Trigger描述触发Job执行的时间触发规则
+
+28.Calender：org.util.Calender是一些日历特定时间的集合，一个Trigger可以和多个Calendar对象相关联，用于
+排除或者包含其他时间点
+
+29.Scheduler：代表一个独立的运行容器，类似于jdk的Timer。用于注册Trigger和JobDetail，两者在该容器中各自都拥有
+ 自己的组和名称，这两个数据是在Scheduler中寻找某一个对象的依据，Trigger和JobDetail两者间的命名没有联系，可以相同
+ 
+30.Trigger/JobDetail两者可以拥有各自的JobDataMap，可以设置各自的自定义属性值，可以在Job任务中通过JobExecutionContext对象来获得
+   对应的JobDataMap，然后获得对应的值
