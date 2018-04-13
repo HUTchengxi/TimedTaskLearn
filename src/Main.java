@@ -27,13 +27,13 @@ import java.util.Timer;
  */
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException {
 
-        Timer timer = new Timer();
-        TimeTaskTest timeTaskTest = new TimeTaskTest();
+//        Timer timer = new Timer();
+//        TimeTaskTest timeTaskTest = new TimeTaskTest();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("当前任务执行时间为: " + simpleDateFormat.format(new Date()));
+//        System.out.println("当前任务执行时间为: " + simpleDateFormat.format(new Date()));
 
         //定时任务的第一种方式
         //只执行一次，但是不会结束应用，会一直卡在那里
@@ -62,9 +62,24 @@ public class Main {
 //        timer.schedule(timeTaskTest, calendar.getTime(), 1000);
 //        timer.scheduleAtFixedRate(timeTaskTest, calendar.getTime(), 2000 );
 
-        Calendar calendar = Calendar.getInstance();
-        TimeTaskTest2 timeTaskTest2 = new TimeTaskTest2();
+//        Calendar calendar = Calendar.getInstance();
+//        TimeTaskTest2 timeTaskTest2 = new TimeTaskTest2();
 //        timer.schedule(timeTaskTest2, calendar.getTime(), 2000);
-        timer.scheduleAtFixedRate(timeTaskTest2, calendar.getTime(), 2000);
+//        timer.scheduleAtFixedRate(timeTaskTest2, calendar.getTime(), 2000);
+
+
+        //启动一个任务，测试cancle
+        TimeTaskTest timeTaskTest = new TimeTaskTest();
+        Timer timer = new Timer();
+        timer.schedule(timeTaskTest, 1000, 2000);
+//        Thread.sleep(5000);
+//        timeTaskTest.cancel();
+//        System.out.println("1表示任务已被关闭，结果为：" + timer.purge());
+        //再启动一个任务，测试timer.cancel
+        TimeTaskTest timeTaskTest1 = new TimeTaskTest();
+        timer.schedule(timeTaskTest1, 1000, 3000);
+        Thread.sleep(4000);
+        timer.cancel();
+        System.out.println("移除的任务数: " + timer.purge());
     }
 }

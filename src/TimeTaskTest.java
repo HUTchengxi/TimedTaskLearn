@@ -12,6 +12,7 @@
  */
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimerTask;
 
 /**
@@ -24,6 +25,6 @@ public class TimeTaskTest extends TimerTask {
     @Override
     public void run() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("当前任务执行时间为: " + simpleDateFormat.format(scheduledExecutionTime()));
+        System.out.println("当前任务执行时间为: " + simpleDateFormat.format(new Date()));
     }
 }

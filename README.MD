@@ -55,4 +55,22 @@ timer内部维护者一个线程队列和任务队列
         但是下一个任务还是会等待前一个任务完成之后才能完成下一个任务
         
         
-17.通过
+17.通过TimerTask的cancel方法可以关闭指定任务，在关闭任务之后，还需要通过调用
+   timer的purge方法来将已关闭的任务移除，该方法会返回Integer值，表示移除的任务数
+   
+18.Timer的cancel方法用于将该任务记录器中的所有任务移除
+
+19.使用Timer的cancel方法之后无法使用timer.purge方法来打印移除的任务数，因为
+再timer源码中的cancel方法移除了任务队列queue所有的任务
+而timer的purge每次只会找到并移除对应的任务队列，并返回移除的结果数
+
+20.ScheduledExecuteService中的两个方法：scheduleAtFixedRate和scheduleWithFixedDelay
+  前者注重于固定频率运行任务，，后者注重与固定延迟运行任务
+  比如：scheduleAtFixedRate(timeTask, 0, 5, Timeutils.Second);表示：
+        如果timeTask命令执行需要三秒，那么下一个任务就会前一个任务执行之后等待两秒后执行
+       scheduleAtFixedDelay(timeTask, 0, 5, Timeutils.Second);表示：
+         不管timeTask命令执行需要几秒，下一个任务都会再前一个任务执行之后等待五秒执行
+         
+         
+    
+21.
